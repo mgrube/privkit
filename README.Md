@@ -10,6 +10,8 @@ We need this in conjunction with CryptoWolf/WannaDie because exploits are hard. 
 
 There might eventually be other fun stuff added to this, but for now it's just designed to elevate privilege, fuck over the root account and execute our payload.
 
+Please be responsible and only use this tool for learning and pentesting with permission. 
+
 ## Usage
 To create a custom payload, modify the sudo script on the lines designated for the payload. Convert it to base64 and re-insert into privkit.sh.
 
