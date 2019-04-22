@@ -4,7 +4,7 @@
 Yes we can!
 
 ## Summary
-This is a rootkit and privilege escalation kit for Linux(Ubuntu) and MacOS.
+This is a privilege escalation kit for Linux(Ubuntu) and MacOS.
 
 We need this in conjunction with CryptoWolf/WannaDie because exploits are hard. If we set the bar low enough that we just need to run one time on the user system, we can eventually escalate privilege the next time our victim uses the sudo command. 
 
