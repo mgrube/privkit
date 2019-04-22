@@ -1,4 +1,4 @@
-# Privilege_Kit
+# Privkit
 
 <p align="center"><img src="yes_we_can.png"></p>
 Yes we can!
